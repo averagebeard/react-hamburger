@@ -40,8 +40,9 @@ type Props = {
   locked: boolean,
   right: boolean,
   routes: Array<Route>,
-  theme?: Theme,
   showTopBar: boolean,
+  slide: boolean,
+  theme?: Theme,
   topBarColor: string,
   topBarHeight: number,
   topBarGutter: number,
@@ -104,6 +105,7 @@ export class ReactHamburger extends React.Component<Props, State> {
       right,
       routes,
       showTopBar,
+      slide,
       theme,
       topBarColor,
       topBarGutter,
@@ -130,7 +132,12 @@ export class ReactHamburger extends React.Component<Props, State> {
             <HamburgerIcon
               height={hamburgerHeight}
               onClick={this.toggleLinks}
+              open={open}
               right={right}
+              slide={slide}
+              speed={linkContainerSpeed}
+              transition={linkContainerTransition}
+              maxWidth={linkContainerMaxWidth}
               width={hamburgerWidth}
             >
               {this.renderBars()}
@@ -145,6 +152,7 @@ export class ReactHamburger extends React.Component<Props, State> {
             maxWidth={linkContainerMaxWidth}
             open={open}
             padding={linkContainerPadding}
+            right={right}
             speed={linkContainerSpeed}
             showTopBar={showTopBar}
             topBarHeight={topBarHeight}

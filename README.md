@@ -62,6 +62,7 @@ The icon that the user clicks to show or hide the `LinkContainer`.
 |  `hamburgerWidth` |  `number` |  `px` |                              Width of the `HamburgerIcon`                              |    `40`   | `hamburger.dimensions` |
 |      `inline`     | `boolean` |  N/A  | Whether the `HamburgerIcon` and any `TopContent` should take up space on the main page |  `false`  |   `hamburger.inline`   |
 |      `locked`     | `boolean` |  N/A  |        Whether to lock the `HamburgerIcon` and `TopBar` to the top of the screen       |  `false`  |     `topBar.locked`    |
+|      `slide`      | `boolean` |  N/A  |          Whather the `HamburgerIcon` should slide out with the `LinkContainer`         |  `false`  |    `hamburger.slide`   |
 |      `right`      | `boolean` |  N/A  |          Whether the `HamburgerIcon` should be on the right side of the screen         |  `false`  |  `hamburger.location`  |
 
 ### LinkContainer

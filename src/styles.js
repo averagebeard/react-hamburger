@@ -25,7 +25,34 @@ export const linkContainerSpacing = css`
   )}
 `;
 
+export const createSlideTransition = (
+  leftPosition: number,
+  rightPosition: number,
+  units: string,
+) => css`
+  transform: translateX(${({
+    right,
+    open,
+    theme: { hamburger: { location } },
+  }) => (
+    // eslint-disable-next-line no-nested-ternary
+    (right || location === 'right')
+      ? (open ? leftPosition : rightPosition)
+      : (open ? rightPosition : leftPosition)
+  )}${units});
+  ${({ speed, theme: { linkContainer }, transition }) => `
+    transition: transform ${speed || linkContainer.speed}s ${transition || linkContainer.transition};
+  `};
+`;
+
 export const topBarPositioning = css`
+  display: flex;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+  ${({ right, theme: { hamburger } }) => `
+    flex-direction: ${right || (hamburger.location === 'right') ? 'row-reverse' : 'row'};
+  `};
   ${({
     inline,
     locked,

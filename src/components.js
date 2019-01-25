@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import {
+  createSlideTransition,
   linkContainerSpacing,
   topBarPositioning,
 } from './styles';
@@ -41,45 +42,45 @@ export const HamburgerIcon = styled.div`
     height: ${height || dimensions}px;
     width: ${width || dimensions}px;
   `};
+  ${({
+    maxWidth,
+    right,
+    slide,
+    theme: { hamburger, linkContainer },
+  }) => (
+    // eslint-disable-next-line no-nested-ternary
+    slide || hamburger.slide
+      ? (right
+        ? createSlideTransition(-maxWidth || -linkContainer.maxWidth, 0, 'px')
+        : createSlideTransition(0, maxWidth || linkContainer.maxWidth, 'px')
+      )
+      : undefined
+  )}
 `;
 
 export const LinkContainer = styled.div`
   position: fixed;
-  transform: translateX(${({
-    right,
-    open,
-    theme: { hamburger: { location } },
-  }) => (
-    // eslint-disable-next-line no-nested-ternary
-    (right || location === 'right')
-      ? (open ? -100 : 0)
-      : (open ? 0 : -100)
-  )}%);
   z-index: 98;
   ${({
     color,
     maxWidth,
     padding,
     right,
-    speed,
     theme: {
       linkContainer,
       hamburger,
     },
-    transition,
     width,
   }) => `
     background: ${color || linkContainer.color};
     height: 100vh;
-
     max-width: ${maxWidth || linkContainer.maxWidth}px;
     padding: ${padding || linkContainer.padding}px;
-
     right: ${right || (hamburger.location === 'right') ? `${-linkContainer.maxWidth}px` : ''};
-    transition: transform ${speed || linkContainer.speed}s ${transition || linkContainer.transition};
     width: ${width || linkContainer.width}%;
   `};
   ${linkContainerSpacing};
+  ${createSlideTransition(-100, 0, '%')}
 `;
 
 export const LinkItem = styled(Link)`
@@ -91,20 +92,14 @@ export const LinkItem = styled(Link)`
 
 export const TopBar = styled.div`
   align-items: center;
-  display: flex;
   position: relative;
-  top: 0;
-  width: 100%;
-  z-index: 99;
   ${({
     color,
     height,
     gutter,
-    right,
-    theme: { hamburger, topBar },
+    theme: { topBar },
   }) => `
     background: ${color || topBar.color};
-    flex-direction: ${(right || hamburger.location) === 'right' ? 'row-reverse' : 'row'};
     height: ${height || topBar.height}px;
     padding-left: ${gutter || topBar.gutter}px;
     padding-right: ${gutter || topBar.gutter}px;
@@ -113,17 +108,7 @@ export const TopBar = styled.div`
 `;
 
 export const TopContainer = styled.div`
-  display: flex;
-  top: 0;
-  width: 100%;
-  z-index: 99;
-  ${({
-    right,
-    theme: { hamburger },
-  }) => `
-    flex-direction: ${(right || hamburger.location) === 'right' ? 'row-reverse' : 'row'};
-
-  `};
+  height: 100%;
   ${topBarPositioning}
 `;
 

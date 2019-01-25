@@ -10,6 +10,7 @@ export const theme = {
     dimensions: 40,
     inline: false,
     location: 'left',
+    slide: false,
   },
   linkContainer: {
     color: '#123456',
