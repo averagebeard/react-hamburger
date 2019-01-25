@@ -116,6 +116,7 @@ export const TopContainer = styled.div`
   display: flex;
   top: 0;
   width: 100%;
+  z-index: 99;
   ${({
     right,
     theme: { hamburger },

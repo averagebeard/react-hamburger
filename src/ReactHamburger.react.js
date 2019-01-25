@@ -51,7 +51,7 @@ type State = {
   open: boolean,
 };
 
-export class HamburgerMenu extends React.Component<Props, State> {
+export class ReactHamburger extends React.Component<Props, State> {
   static defaultProps = {
     barCount: 3,
     LinkContainerContent: null,

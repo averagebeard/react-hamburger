@@ -13,6 +13,7 @@ export type Theme = {
   },
   menu: {
     dimensions: number,
+    inline: boolean,
     location: string,
   },
   linkContainer: {

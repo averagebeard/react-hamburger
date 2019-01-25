@@ -14,7 +14,7 @@ export const theme = {
   linkContainer: {
     color: '#123456',
     maxWidth: 300,
-    padding: 10,
+    padding: 0,
     speed: 0.5,
     transition: 'ease',
     width: 75,
