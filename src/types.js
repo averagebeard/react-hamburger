@@ -13,6 +13,7 @@ export type Theme = {
   },
   menu: {
     dimensions: number,
+    inline: boolean,
     location: string,
   },
   linkContainer: {
@@ -25,6 +26,7 @@ export type Theme = {
   },
   topBar: {
     color: string,
+    display: boolean,
     height: number,
     gutter: number,
     locked: boolean,

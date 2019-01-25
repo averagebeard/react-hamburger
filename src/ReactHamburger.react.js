@@ -5,11 +5,12 @@ import { ThemeProvider } from 'styled-components';
 
 import {
   Bar,
-  Container,
+  HamburgerIcon,
   LinkContainer,
   LinkItem,
-  LogoContainer,
   TopBar,
+  TopContainer,
+  TopContentContainer,
 } from './components';
 
 import { renderLinks } from './renderLinks';
@@ -28,6 +29,7 @@ type Props = {
   barRadius: number,
   hamburgerHeight: number,
   hamburgerWidth: number,
+  inline: boolean,
   linkContainerColor: string,
   LinkContainerContent?: React.Node,
   linkContainerMaxWidth: number,
@@ -36,35 +38,43 @@ type Props = {
   linkContainerTransition: Transition,
   linkContainerWidth: number,
   locked: boolean,
-  LogoComponent?: React.Node,
   right: boolean,
   routes: Array<Route>,
+  showTopBar: boolean,
+  slide: boolean,
   theme?: Theme,
   topBarColor: string,
   topBarHeight: number,
   topBarGutter: number,
+  TopContent?: React.Node
 };
 
 type State = {
   open: boolean,
 };
 
-export class HamburgerMenu extends React.Component<Props, State> {
+/*
+* TODO(Averagebeard): Need to handle click outside.
+*/
+
+export class ReactHamburger extends React.Component<Props, State> {
   static defaultProps = {
     barCount: 3,
     LinkContainerContent: null,
-    LogoComponent: null,
     theme: defaultTheme,
+    TopContent: null,
   }
 
   state = {
     open: false,
   }
 
-  toggleLinks = () => {
+  toggleLinkContainer = (value: boolean) => this.setState({ open: value });
+
+  hamburgerToggle = () => {
     const { open } = this.state;
-    this.setState({ open: !open });
-  };
+    return (open ? this.toggleLinkContainer(false) : this.toggleLinkContainer(true));
+  }
 
   renderBars = () => {
     const {
@@ -89,6 +99,7 @@ export class HamburgerMenu extends React.Component<Props, State> {
     const {
       hamburgerHeight,
       hamburgerWidth,
+      inline,
       linkContainerColor,
       LinkContainerContent,
       linkContainerMaxWidth,
@@ -97,52 +108,67 @@ export class HamburgerMenu extends React.Component<Props, State> {
       linkContainerTransition,
       linkContainerWidth,
       locked,
-      LogoComponent,
       right,
       routes,
+      showTopBar,
+      slide,
       theme,
       topBarColor,
-      topBarHeight,
       topBarGutter,
+      topBarHeight,
+      TopContent,
     } = this.props;
     const { open } = this.state;
+
+    const Top = showTopBar
+      ? TopBar
+      : TopContainer;
 
     return (
       <ThemeProvider theme={theme}>
         <>
-          <TopBar
+          <Top
             color={topBarColor}
             height={topBarHeight}
             gutter={topBarGutter}
+            inline={inline}
             right={right}
             locked={locked}
           >
-            <Container
+            <HamburgerIcon
               height={hamburgerHeight}
-              onClick={this.toggleLinks}
+              onClick={this.hamburgerToggle}
+              open={open}
+              right={right}
+              slide={slide}
+              speed={linkContainerSpeed}
+              transition={linkContainerTransition}
+              maxWidth={linkContainerMaxWidth}
               width={hamburgerWidth}
             >
               {this.renderBars()}
-            </Container>
-            <LogoContainer>
-              {LogoComponent}
-            </LogoContainer>
-          </TopBar>
+            </HamburgerIcon>
+            <TopContentContainer>
+              {TopContent}
+            </TopContentContainer>
+          </Top>
           <LinkContainer
             color={linkContainerColor}
-            height={topBarHeight}
+            hamburgerHeight={hamburgerHeight}
             maxWidth={linkContainerMaxWidth}
-            right={right}
             open={open}
             padding={linkContainerPadding}
+            right={right}
             speed={linkContainerSpeed}
+            showTopBar={showTopBar}
+            topBarHeight={topBarHeight}
             transition={linkContainerTransition}
             width={linkContainerWidth}
           >
             {LinkContainerContent || renderLinks(
               routes,
               LinkItem,
-              this.toggleLinks,
+              () => this.toggleLinkContainer(false),
             )}
           </LinkContainer>
         </>

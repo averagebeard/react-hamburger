@@ -3,6 +3,12 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import {
+  createSlideTransition,
+  linkContainerSpacing,
+  topBarPositioning,
+} from './styles';
+
 /*
 * TODO(averagebeard):
 * Add ability to slide hamburger down from top.
@@ -22,7 +28,7 @@ export const Bar = styled.div`
   `};
 `;
 
-export const Container = styled.div`
+export const HamburgerIcon = styled.div`
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -36,85 +42,76 @@ export const Container = styled.div`
     height: ${height || dimensions}px;
     width: ${width || dimensions}px;
   `};
+  ${({
+    maxWidth,
+    right,
+    slide,
+    theme: { hamburger, linkContainer },
+  }) => (
+    // eslint-disable-next-line no-nested-ternary
+    slide || hamburger.slide
+      ? (right
+        ? createSlideTransition(-maxWidth || -linkContainer.maxWidth, 0, 'px')
+        : createSlideTransition(0, maxWidth || linkContainer.maxWidth, 'px')
+      )
+      : undefined
+  )}
 `;
 
 export const LinkContainer = styled.div`
   position: fixed;
-  transform: translateX(${({
-    right,
-    open,
-    theme: { hamburger: { location } },
-  }) => (
-    // eslint-disable-next-line no-nested-ternary
-    (right || location === 'right')
-      ? (open ? -100 : 0)
-      : (open ? 0 : -100)
-  )}%);
   z-index: 98;
   ${({
     color,
-    height,
     maxWidth,
     padding,
     right,
-    speed,
     theme: {
       linkContainer,
       hamburger,
-      topBar,
     },
-    transition,
     width,
   }) => `
     background: ${color || linkContainer.color};
     height: 100vh;
-    margin-top: -${height || topBar.height}px;
     max-width: ${maxWidth || linkContainer.maxWidth}px;
     padding: ${padding || linkContainer.padding}px;
-    padding-top: ${height || topBar.height}px;
     right: ${right || (hamburger.location === 'right') ? `${-linkContainer.maxWidth}px` : ''};
-    transition: transform ${speed || linkContainer.speed}s ${transition || linkContainer.transition};
     width: ${width || linkContainer.width}%;
   `};
+  ${linkContainerSpacing};
+  ${createSlideTransition(-100, 0, '%')}
 `;
 
 export const LinkItem = styled(Link)`
   color: white;
   display: block;
   font-size: 18px;
-  padding-top: 10px;
-  padding-bottom: 10px;
   text-transform: capitalize;
-`;
-
-export const LogoContainer = styled.div`
-  align-items: center;
-  display: flex;
-  flex: 1;
-  height: 100%;
-  justify-content: center;
 `;
 
 export const TopBar = styled.div`
   align-items: center;
-  display: flex;
   position: relative;
-  top: 0;
-  width: 100%;
-  z-index: 99;
   ${({
     color,
     height,
     gutter,
-    locked,
-    right,
-    theme: { hamburger, topBar },
+    theme: { topBar },
   }) => `
     background: ${color || topBar.color};
-    flex-direction: ${(right || hamburger.location) === 'right' ? 'row-reverse' : 'row'};
     height: ${height || topBar.height}px;
     padding-left: ${gutter || topBar.gutter}px;
     padding-right: ${gutter || topBar.gutter}px;
-    position: ${(locked || topBar.locked ? 'sticky' : 'relative')};
   `};
+  ${topBarPositioning}
+`;
+
+export const TopContainer = styled.div`
+  height: 100%;
+  ${topBarPositioning}
+`;
+
+export const TopContentContainer = styled.div`
+  flex: 1;
 `;
