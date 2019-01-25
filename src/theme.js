@@ -21,6 +21,7 @@ export const theme = {
   },
   topBar: {
     color: '#111111',
+    display: false,
     height: 60,
     gutter: 10,
     locked: false,

@@ -3,7 +3,10 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { topBarPositioning } from './styles';
+import {
+  linkContainerSpacing,
+  topBarPositioning,
+} from './styles';
 
 /*
 * TODO(averagebeard):
@@ -55,7 +58,6 @@ export const LinkContainer = styled.div`
   z-index: 98;
   ${({
     color,
-    height,
     maxWidth,
     padding,
     right,
@@ -63,29 +65,27 @@ export const LinkContainer = styled.div`
     theme: {
       linkContainer,
       hamburger,
-      topBar,
     },
     transition,
     width,
   }) => `
     background: ${color || linkContainer.color};
     height: 100vh;
-    margin-top: -${height || topBar.height}px;
+
     max-width: ${maxWidth || linkContainer.maxWidth}px;
     padding: ${padding || linkContainer.padding}px;
-    padding-top: ${height || topBar.height}px;
+
     right: ${right || (hamburger.location === 'right') ? `${-linkContainer.maxWidth}px` : ''};
     transition: transform ${speed || linkContainer.speed}s ${transition || linkContainer.transition};
     width: ${width || linkContainer.width}%;
   `};
+  ${linkContainerSpacing};
 `;
 
 export const LinkItem = styled(Link)`
   color: white;
   display: block;
   font-size: 18px;
-  padding-top: 10px;
-  padding-bottom: 10px;
   text-transform: capitalize;
 `;
 
@@ -125,4 +125,8 @@ export const TopContainer = styled.div`
 
   `};
   ${topBarPositioning}
+`;
+
+export const TopContentContainer = styled.div`
+  flex: 1;
 `;

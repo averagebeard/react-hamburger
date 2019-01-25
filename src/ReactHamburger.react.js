@@ -10,6 +10,7 @@ import {
   LinkItem,
   TopBar,
   TopContainer,
+  TopContentContainer,
 } from './components';
 
 import { renderLinks } from './renderLinks';
@@ -40,7 +41,7 @@ type Props = {
   right: boolean,
   routes: Array<Route>,
   theme?: Theme,
-  topBar: boolean,
+  showTopBar: boolean,
   topBarColor: string,
   topBarHeight: number,
   topBarGutter: number,
@@ -102,8 +103,8 @@ export class ReactHamburger extends React.Component<Props, State> {
       locked,
       right,
       routes,
+      showTopBar,
       theme,
-      topBar,
       topBarColor,
       topBarGutter,
       topBarHeight,
@@ -111,7 +112,7 @@ export class ReactHamburger extends React.Component<Props, State> {
     } = this.props;
     const { open } = this.state;
 
-    const Top = topBar
+    const Top = showTopBar
       ? TopBar
       : TopContainer;
 
@@ -134,16 +135,19 @@ export class ReactHamburger extends React.Component<Props, State> {
             >
               {this.renderBars()}
             </HamburgerIcon>
-            {TopContent}
+            <TopContentContainer>
+              {TopContent}
+            </TopContentContainer>
           </Top>
           <LinkContainer
             color={linkContainerColor}
-            height={topBarHeight}
+            hamburgerHeight={hamburgerHeight}
             maxWidth={linkContainerMaxWidth}
-
             open={open}
             padding={linkContainerPadding}
             speed={linkContainerSpeed}
+            showTopBar={showTopBar}
+            topBarHeight={topBarHeight}
             transition={linkContainerTransition}
             width={linkContainerWidth}
           >

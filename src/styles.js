@@ -10,6 +10,21 @@ const clearMixin = css`
   }
 `;
 
+/*
+* Known bug:
+* When using `showTopBar` and `inline` the UX isn't great.
+*/
+export const linkContainerSpacing = css`
+  ${({
+    showTopBar,
+    theme: { hamburger, topBar },
+  }) => (
+    (showTopBar || topBar.display)
+      ? ({ paddingTop: topBar.height })
+      : ({ paddingTop: hamburger.dimensions })
+  )}
+`;
+
 export const topBarPositioning = css`
   ${({
     inline,

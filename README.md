@@ -79,13 +79,13 @@ The component that holds the links (or whatever content the developer wants) tha
 
 ### TopBar
 
-|      Name      |     Type     | Units |                                              Description                                              |  Default  |   `theme` key   |
-| :------------: | :----------: | :---: | :---------------------------------------------------------------------------------------------------: | :-------: | :-------------: |
-|    `topBar`    |   `boolean`  |  N/A  |              Whether or not to render a `TopBar`. Gives access to other `topBar*` props.              |  `false`  |       N/A       |
-|  `topBarColor` |   `string`   |  N/A  | Color of the top bar that holds the `HamburgerIcon` and any other contents placed inside the `TopBar` | `#111111` |  `topBar.color` |
-| `topBarHeight` |   `number`   |  `px` |   Height of the bar that holds the `HamburgerIcon` and any other contents placed inside the `TopBar`  |    `60`   | `topBar.height` |
-| `topBarGutter` |   `number`   |  `px` |              Space between the contents of the `HamburgerIcon` and the edge of the screen             |    `0`    | `topBar.gutter` |
-|  `TopContent`  | `React.Node` |  N/A  |                          Any content to render alongside the `HamburgerIcon`                          |   `null`  |       N/A       |
+|      Name      |     Type     | Units |                                              Description                                              |  Default  |    `theme` key   |
+| :------------: | :----------: | :---: | :---------------------------------------------------------------------------------------------------: | :-------: | :--------------: |
+|  `showTopBar`  |   `boolean`  |  N/A  |              Whether or not to render a `TopBar`. Gives access to other `topBar*` props.              |  `false`  | `topBar.display` |
+|  `topBarColor` |   `string`   |  N/A  | Color of the top bar that holds the `HamburgerIcon` and any other contents placed inside the `TopBar` | `#111111` |  `topBar.color`  |
+| `topBarHeight` |   `number`   |  `px` |   Height of the bar that holds the `HamburgerIcon` and any other contents placed inside the `TopBar`  |    `60`   |  `topBar.height` |
+| `topBarGutter` |   `number`   |  `px` |              Space between the contents of the `HamburgerIcon` and the edge of the screen             |    `0`    |  `topBar.gutter` |
+|  `TopContent`  | `React.Node` |  N/A  |                          Any content to render alongside the `HamburgerIcon`                          |   `null`  |        N/A       |
 
 ### Custom Types
 
@@ -103,7 +103,7 @@ type Theme = {
     height: number,
     radius: number,
   },
-  hamburger: {
+  menu: {
     dimensions: number,
     inline: boolean,
     location: string,
@@ -118,6 +118,7 @@ type Theme = {
   },
   topBar: {
     color: string,
+    display: boolean,
     height: number,
     gutter: number,
     locked: boolean,
@@ -155,6 +156,7 @@ const theme = {
   },
   topBar: {
     color: '#111111',
+    display: false,
     height: 60,
     gutter: 10,
     locked: false,
