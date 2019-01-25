@@ -53,6 +53,10 @@ type State = {
   open: boolean,
 };
 
+/*
+* TODO(Averagebeard): Need to handle click outside.
+*/
+
 export class ReactHamburger extends React.Component<Props, State> {
   static defaultProps = {
     barCount: 3,
@@ -65,10 +69,12 @@ export class ReactHamburger extends React.Component<Props, State> {
     open: false,
   }
 
-  toggleLinks = () => {
+  toggleLinkContainer = (value: boolean) => this.setState({ open: value });
+
+  hamburgerToggle = () => {
     const { open } = this.state;
-    this.setState({ open: !open });
-  };
+    return (open ? this.toggleLinkContainer(false) : this.toggleLinkContainer(true));
+  }
 
   renderBars = () => {
     const {
@@ -131,7 +137,7 @@ export class ReactHamburger extends React.Component<Props, State> {
           >
             <HamburgerIcon
               height={hamburgerHeight}
-              onClick={this.toggleLinks}
+              onClick={this.hamburgerToggle}
               open={open}
               right={right}
               slide={slide}
@@ -162,7 +168,7 @@ export class ReactHamburger extends React.Component<Props, State> {
             {LinkContainerContent || renderLinks(
               routes,
               LinkItem,
-              this.toggleLinks,
+              () => this.toggleLinkContainer(false),
             )}
           </LinkContainer>
         </>
