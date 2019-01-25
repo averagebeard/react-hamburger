@@ -5,11 +5,11 @@ import { ThemeProvider } from 'styled-components';
 
 import {
   Bar,
-  Container,
+  HamburgerIcon,
   LinkContainer,
   LinkItem,
-  LogoContainer,
   TopBar,
+  TopContainer,
 } from './components';
 
 import { renderLinks } from './renderLinks';
@@ -28,6 +28,7 @@ type Props = {
   barRadius: number,
   hamburgerHeight: number,
   hamburgerWidth: number,
+  inline: boolean,
   linkContainerColor: string,
   LinkContainerContent?: React.Node,
   linkContainerMaxWidth: number,
@@ -36,13 +37,14 @@ type Props = {
   linkContainerTransition: Transition,
   linkContainerWidth: number,
   locked: boolean,
-  LogoComponent?: React.Node,
   right: boolean,
   routes: Array<Route>,
   theme?: Theme,
+  topBar: boolean,
   topBarColor: string,
   topBarHeight: number,
   topBarGutter: number,
+  TopContent?: React.Node
 };
 
 type State = {
@@ -53,8 +55,8 @@ export class HamburgerMenu extends React.Component<Props, State> {
   static defaultProps = {
     barCount: 3,
     LinkContainerContent: null,
-    LogoComponent: null,
     theme: defaultTheme,
+    TopContent: null,
   }
 
   state = {
@@ -89,6 +91,7 @@ export class HamburgerMenu extends React.Component<Props, State> {
     const {
       hamburgerHeight,
       hamburgerWidth,
+      inline,
       linkContainerColor,
       LinkContainerContent,
       linkContainerMaxWidth,
@@ -97,42 +100,47 @@ export class HamburgerMenu extends React.Component<Props, State> {
       linkContainerTransition,
       linkContainerWidth,
       locked,
-      LogoComponent,
       right,
       routes,
       theme,
+      topBar,
       topBarColor,
-      topBarHeight,
       topBarGutter,
+      topBarHeight,
+      TopContent,
     } = this.props;
     const { open } = this.state;
+
+    const Top = topBar
+      ? TopBar
+      : TopContainer;
 
     return (
       <ThemeProvider theme={theme}>
         <>
-          <TopBar
+          <Top
             color={topBarColor}
             height={topBarHeight}
             gutter={topBarGutter}
+            inline={inline}
             right={right}
             locked={locked}
           >
-            <Container
+            <HamburgerIcon
               height={hamburgerHeight}
               onClick={this.toggleLinks}
+              right={right}
               width={hamburgerWidth}
             >
               {this.renderBars()}
-            </Container>
-            <LogoContainer>
-              {LogoComponent}
-            </LogoContainer>
-          </TopBar>
+            </HamburgerIcon>
+            {TopContent}
+          </Top>
           <LinkContainer
             color={linkContainerColor}
             height={topBarHeight}
             maxWidth={linkContainerMaxWidth}
-            right={right}
+
             open={open}
             padding={linkContainerPadding}
             speed={linkContainerSpeed}

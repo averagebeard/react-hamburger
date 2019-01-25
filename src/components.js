@@ -3,6 +3,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import { topBarPositioning } from './styles';
+
 /*
 * TODO(averagebeard):
 * Add ability to slide hamburger down from top.
@@ -22,7 +24,7 @@ export const Bar = styled.div`
   `};
 `;
 
-export const Container = styled.div`
+export const HamburgerIcon = styled.div`
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -87,14 +89,6 @@ export const LinkItem = styled(Link)`
   text-transform: capitalize;
 `;
 
-export const LogoContainer = styled.div`
-  align-items: center;
-  display: flex;
-  flex: 1;
-  height: 100%;
-  justify-content: center;
-`;
-
 export const TopBar = styled.div`
   align-items: center;
   display: flex;
@@ -106,7 +100,6 @@ export const TopBar = styled.div`
     color,
     height,
     gutter,
-    locked,
     right,
     theme: { hamburger, topBar },
   }) => `
@@ -115,6 +108,20 @@ export const TopBar = styled.div`
     height: ${height || topBar.height}px;
     padding-left: ${gutter || topBar.gutter}px;
     padding-right: ${gutter || topBar.gutter}px;
-    position: ${(locked || topBar.locked ? 'sticky' : 'relative')};
   `};
+  ${topBarPositioning}
+`;
+
+export const TopContainer = styled.div`
+  display: flex;
+  top: 0;
+  width: 100%;
+  ${({
+    right,
+    theme: { hamburger },
+  }) => `
+    flex-direction: ${(right || hamburger.location) === 'right' ? 'row-reverse' : 'row'};
+
+  `};
+  ${topBarPositioning}
 `;

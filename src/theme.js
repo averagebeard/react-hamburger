@@ -8,7 +8,8 @@ export const theme = {
   },
   hamburger: {
     dimensions: 40,
-    location: 'right',
+    inline: false,
+    location: 'left',
   },
   linkContainer: {
     color: '#123456',
