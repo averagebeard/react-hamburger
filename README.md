@@ -46,10 +46,10 @@ Props can either be directly passed through the `ReactHamburger` component or, w
 
 ### General
 
-|   Name   |    Type   | Units |                                                                      Description                                                                     |           Default           | `theme` key |
-| :------: | :-------: | :---: | :--------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------: | :---------: |
-|  `theme` |  `Theme`  |  N/A  | `theme` object that can be passed to `react-hamburger` rather than passing individual props. The object and the keys can be seen in **Custom Types** | See [default theme](#theme) |     N/A     |
-| `routes` | `Route[]` |  N/A  |                                Array of [`Route`](#custom-types) objects that will be rendered in the `LinkContainer`                                |             N/A             |     N/A     |
+|   Name   |            Type            | Units |                                                                      Description                                                                     |     Default     | `theme` key |
+| :------: | :------------------------: | :---: | :--------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------: | :---------: |
+|  `theme` |  [`Theme`](#custom-types)  |  N/A  | `theme` object that can be passed to `react-hamburger` rather than passing individual props. The object and the keys can be seen in **Custom Types** | [Theme](#theme) |     N/A     |
+| `routes` | [`Route[]`](#custom-types) |  N/A  |                                Array of [`Route`](#custom-types) objects that will be rendered in the `LinkContainer`                                |       N/A       |     N/A     |
 
 ### HamburgerIcon
 
@@ -74,7 +74,7 @@ The component that holds the links (or whatever content the developer wants) tha
 
 |            Name           |              Type             |   Units   |                          Description                          |  Default  |    [`theme`](#theme) key   |
 | :-----------------------: | :---------------------------: | :-------: | :-----------------------------------------------------------: | :-------: | :------------------------: |
-|      `LinkComponent`      |      `() => React.Node`      |    N/A    |     Component that will be rendered by the `routes` prop.     |    N/A    |             N/A            |
+|      `LinkComponent`      |       `() => React.Node`      |    N/A    |     Component that will be rendered by the `routes` prop.     |    N/A    |             N/A            |
 |    `linkContainerColor`   |            `string`           |    N/A    |                  Color of the `LinkContainer`                 | `#123456` |    `linkContainer.color`   |
 |  `linkContainerMaxWidth`  |            `number`           |    `px`   |    Maximum width the `LinkContainer` will cover the screen    |   `300`   |  `linkContainer.maxWidth`  |
 |   `linkContainerPadding`  |            `number`           |    `px`   |   External padding around the outside of the `LinkContainer`  |    `10`   |   `linkContainer.padding`  |
