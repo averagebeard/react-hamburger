@@ -5,7 +5,7 @@ import * as React from 'react';
 import type { Route } from './types';
 
 export const renderLinks = (
-  routes: Array<Route>,
+  routes: Route[],
   LinkComponent: () => React.Node,
   onClick: () => void,
 ) => routes.map<{}>(route => (

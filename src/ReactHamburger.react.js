@@ -7,7 +7,6 @@ import {
   Bar,
   HamburgerIcon,
   LinkContainer,
-  LinkItem,
   TopBar,
   TopContainer,
   TopContentContainer,
@@ -30,8 +29,8 @@ type Props = {
   hamburgerHeight: number,
   hamburgerWidth: number,
   inline: boolean,
+  LinkComponent: () => React.Node,
   linkContainerColor: string,
-  LinkContainerContent?: React.Node,
   linkContainerMaxWidth: number,
   linkContainerPadding: number,
   linkContainerSpeed: number,
@@ -39,7 +38,7 @@ type Props = {
   linkContainerWidth: number,
   locked: boolean,
   right: boolean,
-  routes: Array<Route>,
+  routes: Route[],
   showTopBar: boolean,
   slide: boolean,
   theme?: Theme,
@@ -60,7 +59,6 @@ type State = {
 export class ReactHamburger extends React.Component<Props, State> {
   static defaultProps = {
     barCount: 3,
-    LinkContainerContent: null,
     theme: defaultTheme,
     TopContent: null,
   }
@@ -100,8 +98,8 @@ export class ReactHamburger extends React.Component<Props, State> {
       hamburgerHeight,
       hamburgerWidth,
       inline,
+      LinkComponent,
       linkContainerColor,
-      LinkContainerContent,
       linkContainerMaxWidth,
       linkContainerPadding,
       linkContainerSpeed,
@@ -165,10 +163,10 @@ export class ReactHamburger extends React.Component<Props, State> {
             transition={linkContainerTransition}
             width={linkContainerWidth}
           >
-            {LinkContainerContent || renderLinks(
+            {renderLinks(
               routes,
-              LinkItem,
-              () => this.toggleLinkContainer(false),
+              LinkComponent,
+              this.hamburgerToggle,
             )}
           </LinkContainer>
         </>
