@@ -38,21 +38,24 @@ class HamburgerMenu extends React.Component {
 }
 ```
 
+To finish the setup pass a `routes` array and a `LinkComponent`. Make sure that the `routes` array has the same keys has [`Route`](#custom-types).
+
 ## Props
 
 Props can either be directly passed through the `ReactHamburger` component or, where it exists, through the corresponding `theme` key.
 
 ### General
 
-|   Name  |   Type  | Units |                                                                      Description                                                                     |      Default      | `theme` key |
-| :-----: | :-----: | :---: | :--------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------: | :---------: |
-| `theme` | `Theme` |  N/A  | `theme` object that can be passed to `react-hamburger` rather than passing individual props. The object and the keys can be seen in **Custom Types** | See default theme |     N/A     |
+|   Name   |    Type   | Units |                                                                      Description                                                                     |           Default           | `theme` key |
+| :------: | :-------: | :---: | :--------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------: | :---------: |
+|  `theme` |  `Theme`  |  N/A  | `theme` object that can be passed to `react-hamburger` rather than passing individual props. The object and the keys can be seen in **Custom Types** | See [default theme](#theme) |     N/A     |
+| `routes` | `Route[]` |  N/A  |                                Array of [`Route`](#custom-types) objects that will be rendered in the `LinkContainer`                                |             N/A             |     N/A     |
 
 ### HamburgerIcon
 
 The icon that the user clicks to show or hide the `LinkContainer`.
 
-|        Name       |    Type   | Units |                                       Description                                      |  Default  |       `theme` key      |
+|        Name       |    Type   | Units |                                       Description                                      |  Default  |  [`theme`](#theme) key |
 | :---------------: | :-------: | :---: | :------------------------------------------------------------------------------------: | :-------: | :--------------------: |
 |     `barColor`    |  `string` |  N/A  |                            Color of the `HamburgerIcon` bars                           | `#FFFFFF` |      `bars.color`      |
 |     `barCount`    |  `number` |  N/A  |                          Number of bars in the `HamburgerIcon`                         |    `3`    |           N/A          |
@@ -69,35 +72,36 @@ The icon that the user clicks to show or hide the `LinkContainer`.
 
 The component that holds the links (or whatever content the developer wants) that will show or hide when the user clicks on the `HamburgerIcon`
 
-|            Name           |     Type     |   Units   |                          Description                          |  Default  |         `theme` key        |
-| :-----------------------: | :----------: | :-------: | :-----------------------------------------------------------: | :-------: | :------------------------: |
-|    `linkContainerColor`   |   `string`   |    N/A    |                  Color of the `LinkContainer`                 | `#123456` |    `linkContainer.color`   |
-|  `linkContainerMaxWidth`  |   `number`   |    `px`   |    Maximum width the `LinkContainer` will cover the screen    |   `300`   |  `linkContainer.maxWidth`  |
-|   `linkContainerPadding`  |   `number`   |    `px`   |   External padding around the outside of the `LinkContainer`  |    `10`   |   `linkContainer.padding`  |
-|    `linkContainerSpeed`   |   `number`   | `seconds` | Speed (in seconds) that the `LinkContainer` slides in and out |   `0.5`   |    `linkContainer.speed`   |
-| `linkContainerTransition` | `Transition` |    N/A    |            Transition type for the `LinkContainer`            |   `ease`  | `linkContainer.transition` |
-|    `linkContainerWidth`   |   `number`   |    `%`    | Width that the `LinkContainer` will take, up to it's maxWidth |    `75`   |    `linkContainer.width`   |
+|            Name           |              Type             |   Units   |                          Description                          |  Default  |    [`theme`](#theme) key   |
+| :-----------------------: | :---------------------------: | :-------: | :-----------------------------------------------------------: | :-------: | :------------------------: |
+|      `LinkComponent`      |      `() => React.Node`      |    N/A    |     Component that will be rendered by the `routes` prop.     |    N/A    |             N/A            |
+|    `linkContainerColor`   |            `string`           |    N/A    |                  Color of the `LinkContainer`                 | `#123456` |    `linkContainer.color`   |
+|  `linkContainerMaxWidth`  |            `number`           |    `px`   |    Maximum width the `LinkContainer` will cover the screen    |   `300`   |  `linkContainer.maxWidth`  |
+|   `linkContainerPadding`  |            `number`           |    `px`   |   External padding around the outside of the `LinkContainer`  |    `10`   |   `linkContainer.padding`  |
+|    `linkContainerSpeed`   |            `number`           | `seconds` | Speed (in seconds) that the `LinkContainer` slides in and out |   `0.5`   |    `linkContainer.speed`   |
+| `linkContainerTransition` | [`Transition`](#custom-types) |    N/A    |            Transition type for the `LinkContainer`            |   `ease`  | `linkContainer.transition` |
+|    `linkContainerWidth`   |            `number`           |    `%`    | Width that the `LinkContainer` will take, up to it's maxWidth |    `75`   |    `linkContainer.width`   |
 
 ### TopBar
 
-|      Name      |     Type     | Units |                                              Description                                              |  Default  |    `theme` key   |
-| :------------: | :----------: | :---: | :---------------------------------------------------------------------------------------------------: | :-------: | :--------------: |
-|  `showTopBar`  |   `boolean`  |  N/A  |              Whether or not to render a `TopBar`. Gives access to other `topBar*` props.              |  `false`  | `topBar.display` |
-|  `topBarColor` |   `string`   |  N/A  | Color of the top bar that holds the `HamburgerIcon` and any other contents placed inside the `TopBar` | `#111111` |  `topBar.color`  |
-| `topBarHeight` |   `number`   |  `px` |   Height of the bar that holds the `HamburgerIcon` and any other contents placed inside the `TopBar`  |    `60`   |  `topBar.height` |
-| `topBarGutter` |   `number`   |  `px` |              Space between the contents of the `HamburgerIcon` and the edge of the screen             |    `0`    |  `topBar.gutter` |
-|  `TopContent`  | `React.Node` |  N/A  |                          Any content to render alongside the `HamburgerIcon`                          |   `null`  |        N/A       |
+|      Name      |     Type     | Units |                                              Description                                              |  Default  | [`theme`](#theme) key |
+| :------------: | :----------: | :---: | :---------------------------------------------------------------------------------------------------: | :-------: | :-------------------: |
+|  `showTopBar`  |   `boolean`  |  N/A  |              Whether or not to render a `TopBar`. Gives access to other `topBar*` props.              |  `false`  |    `topBar.display`   |
+|  `topBarColor` |   `string`   |  N/A  | Color of the top bar that holds the `HamburgerIcon` and any other contents placed inside the `TopBar` | `#111111` |     `topBar.color`    |
+| `topBarHeight` |   `number`   |  `px` |   Height of the bar that holds the `HamburgerIcon` and any other contents placed inside the `TopBar`  |    `60`   |    `topBar.height`    |
+| `topBarGutter` |   `number`   |  `px` |              Space between the contents of the `HamburgerIcon` and the edge of the screen             |    `0`    |    `topBar.gutter`    |
+|  `TopContent`  | `React.Node` |  N/A  |                          Any content to render alongside the `HamburgerIcon`                          |   `null`  |          N/A          |
 
 ### Custom Types
 
-```flow
+```javascript
 type Route = {
   path: string,
   title: string,
 };
 ```
 
-```flow
+```javascript
 type Theme = {
   bars: {
     color: string,
@@ -108,6 +112,7 @@ type Theme = {
     dimensions: number,
     inline: boolean,
     location: string,
+    slide: boolean,
   },
   linkContainer: {
     color: string,
@@ -127,7 +132,7 @@ type Theme = {
 };
 ```
 
-```flow
+```javascript
 type Transition = 'ease' | 'linear' | 'ease-in' | 'ease-out' | 'ease-in-out';
 ```
 
@@ -146,6 +151,7 @@ const theme = {
     dimensions: 40,
     inline: false,
     location: 'left',
+    slide: false,
   },
   linkContainer: {
     color: '#123456',

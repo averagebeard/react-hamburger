@@ -1,7 +1,6 @@
 // @flow
 
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 import {
   createSlideTransition,
@@ -81,13 +80,6 @@ export const LinkContainer = styled.div`
   `};
   ${linkContainerSpacing};
   ${createSlideTransition(-100, 0, '%')}
-`;
-
-export const LinkItem = styled(Link)`
-  color: white;
-  display: block;
-  font-size: 18px;
-  text-transform: capitalize;
 `;
 
 export const TopBar = styled.div`

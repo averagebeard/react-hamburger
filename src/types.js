@@ -15,6 +15,7 @@ export type Theme = {
     dimensions: number,
     inline: boolean,
     location: string,
+    slide: boolean,
   },
   linkContainer: {
     color: string,
