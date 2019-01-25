@@ -27,6 +27,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  z-index: 100;
   ${({
     height,
     theme: { hamburger: { dimensions } },
@@ -49,7 +50,7 @@ export const LinkContainer = styled.div`
       ? (open ? -100 : 0)
       : (open ? 0 : -100)
   )}%);
-  z-index: 999999;
+  z-index: 98;
   ${({
     color,
     height,
@@ -66,9 +67,11 @@ export const LinkContainer = styled.div`
     width,
   }) => `
     background: ${color || linkContainer.color};
-    height: calc(100vh - ${height || topBar.height}px);
+    height: 100vh;
+    margin-top: -${height || topBar.height}px;
     max-width: ${maxWidth || linkContainer.maxWidth}px;
     padding: ${padding || linkContainer.padding}px;
+    padding-top: ${height || topBar.height}px;
     right: ${right || (hamburger.location === 'right') ? `${-linkContainer.maxWidth}px` : ''};
     transition: transform ${speed || linkContainer.speed}s ${transition || linkContainer.transition};
     width: ${width || linkContainer.width}%;
@@ -95,9 +98,10 @@ export const LogoContainer = styled.div`
 export const TopBar = styled.div`
   align-items: center;
   display: flex;
-  width: 100%;
+  position: relative;
   top: 0;
-  z-index: 999998;
+  width: 100%;
+  z-index: 99;
   ${({
     color,
     height,

@@ -22,6 +22,6 @@ export const theme = {
     color: '#111111',
     height: 60,
     gutter: 10,
-    locked: true,
+    locked: false,
   },
 };

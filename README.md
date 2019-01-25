@@ -24,7 +24,7 @@ yarn add react-hamburger
 | `linkContainerSpeed` | `number` | `seconds` | Speed (in seconds) that the `LinkContainer` slides in and out | `0.5` | `linkContainer.speed` |
 | `linkContainerTransition` | `Transition` | N/A |  Transition type for the `LinkContainer` | `ease` | `linkContainer.transition` |
 | `linkContainerWidth` | `number` | `%` | Width that the `LinkContainer` will take, up to it's maxWidth | `75` | `linkContainer.width` |
-| `locked` | `boolean` | N/A | Whether to lock the TopBar and its contents to the top of the screen | `true` | `topBar.locked` |
+| `locked` | `boolean` | N/A | Whether to lock the TopBar and its contents to the top of the screen | `false` | `topBar.locked` |
 | `LogoComponent` | `React.Node` | N/A | | `null` | N/A |
 | `right` | `boolean` | N/A | Whether the hamburger icon should be on the right side of the screen | `false` | `hamburger.location` |
 | `theme` | `Theme` | N/A | `theme` object that can be passed to `react-hamburger` rather than passing individual props. The object and the keys can be seen in __Custom Types__ | See default theme | N/A |
