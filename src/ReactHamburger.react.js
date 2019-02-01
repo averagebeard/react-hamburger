@@ -25,10 +25,10 @@ type Props = {
   barCount?: number,
   barHeight: number,
   barRadius: number,
+  children: React.Node,
   hamburgerHeight: number,
   hamburgerWidth: number,
   inline: boolean,
-  LinkContainerContent?: () => React.Node,
   linkContainerColor: string,
   linkContainerMaxWidth: number,
   linkContainerPadding: number,
@@ -36,6 +36,7 @@ type Props = {
   linkContainerTransition: Transition,
   linkContainerWidth: number,
   locked: boolean,
+  allowToggle?: boolean,
   right: boolean,
   showTopBar: boolean,
   slide: boolean,
@@ -57,23 +58,13 @@ type State = {
 export class ReactHamburger extends React.Component<Props, State> {
   static defaultProps = {
     barCount: 3,
-    LinkContainerContent: null,
+    allowToggle: true,
     theme: defaultTheme,
     TopContent: null,
   }
 
-
-  constructor(props: Props) {
-    super(props);
-
-    // const hamburgerTheme = deepmerge.all([defaultTheme, theme]);
-
-    const { theme } = this.props;
-    this.hamburgerTheme = deepmerge.all([defaultTheme, theme]);
-
-    this.state = {
-      open: false,
-    };
+  state = {
+    open: false,
   }
 
   toggleLinkContainer = (value: boolean) => this.setState({ open: value });
@@ -106,10 +97,10 @@ export class ReactHamburger extends React.Component<Props, State> {
 
   render() {
     const {
+      children,
       hamburgerHeight,
       hamburgerWidth,
       inline,
-      LinkContainerContent,
       linkContainerColor,
       linkContainerMaxWidth,
       linkContainerPadding,
@@ -117,6 +108,7 @@ export class ReactHamburger extends React.Component<Props, State> {
       linkContainerTransition,
       linkContainerWidth,
       locked,
+      allowToggle,
       right,
       showTopBar,
       slide,
@@ -128,12 +120,28 @@ export class ReactHamburger extends React.Component<Props, State> {
     } = this.props;
     const { open } = this.state;
 
-    const Top = showTopBar || (theme !== undefined ? theme.topBar.display : null)
+    const topBarExists = (theme !== undefined ? theme.topBar.display : null);
+    const Top = showTopBar || topBarExists
       ? TopBar
       : TopContainer;
 
+
+    const allowToggleExists = (theme !== undefined ? theme.linkContainer.allowToggle : null);
+    const childrenWithProps = React.Children.map(children, child => (
+      React.cloneElement(
+        child,
+        {
+          onClick: allowToggle || allowToggleExists
+            ? this.hamburgerToggle
+            : null,
+        },
+      )
+    ));
+
+    const hamburgerTheme = deepmerge.all([defaultTheme, theme]);
+
     return (
-      <ThemeProvider theme={this.hamburgerTheme}>
+      <ThemeProvider theme={hamburgerTheme}>
         <>
           <Top
             color={topBarColor}
@@ -173,7 +181,7 @@ export class ReactHamburger extends React.Component<Props, State> {
             transition={linkContainerTransition}
             width={linkContainerWidth}
           >
-            {LinkContainerContent}
+            {childrenWithProps}
           </LinkContainer>
         </>
       </ThemeProvider>
