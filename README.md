@@ -1,6 +1,6 @@
 # React-Hamburger
 
-A simple hamburger menu for React that is fully customizable.
+A simple and fully customizable hamburger menu for React.
 
 ## Installation
 
@@ -62,14 +62,21 @@ const { topBarHeight } = require('react-hamburger');
 
 Props can either be directly passed through the `ReactHamburger` component or, where it exists, through the corresponding `theme` key.
 
-There are no required props to be passed in. To add content to the sliding sidebar, pass a component to the `LinkContainerContent` prop.
+If you pass a prop and use the theme, the prop will take precedence.
 
-### General
+### `children`
 
-|           Name           |           Type           | Units |                                                                      Description                                                                     |     Default     | `theme` key |
-| :----------------------: | :----------------------: | :---: | :--------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------: | :---------: |
-|          `theme`         | [`Theme`](#custom-types) |  N/A  | `theme` object that can be passed to `react-hamburger` rather than passing individual props. The object and the keys can be seen in **Custom Types** | [Theme](#theme) |     N/A     |
-| `LinkContainerComponent` |    `() => React.Node`    |  N/A  |                                              React component that will render inside the `LinkContainer`                                             |      `null`     |     N/A     |
+Passing in `this.props.children` will render content in the `LinkContainer` (i.e. the slide-in-out sidebar). The children will by default have access to the `allowToggle` prop.
+
+The `allowToggle` prop gives each child the `hamburgerToggle` method from the `ReactHamburger` component as part of their `onClick`. This method closes the `LinkContainer` (an expected default behavior.
+
+If your links are nested inside another container, the main container will still have access to the `allowToggle` method, which you can then pass to those children in a similar fashion to `ReactHamburger`. [Check out the React docs](https://reactjs.org/docs/react-api.html#reactchildren) for more information on how to pass props through to children.
+
+### Theme
+
+|   Name  |           Type           | Units |                                                                      Description                                                                     |     Default     | `theme` key |
+| :-----: | :----------------------: | :---: | :--------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------: | :---------: |
+| `theme` | [`Theme`](#custom-types) |  N/A  | `theme` object that can be passed to `react-hamburger` rather than passing individual props. The object and the keys can be seen in **Custom Types** | [Theme](#theme) |     N/A     |
 
 ### HamburgerIcon
 
@@ -92,15 +99,16 @@ The icon that the user clicks to show or hide the `LinkContainer`.
 
 The component that holds the links (or whatever content the developer wants) that will show or hide when the user clicks on the `HamburgerIcon`
 
-|            Name           |              Type             |   Units   |                          Description                          |  Default  |    [`theme`](#theme) key   |
-| :-----------------------: | :---------------------------: | :-------: | :-----------------------------------------------------------: | :-------: | :------------------------: |
-|      `LinkComponent`      |       `() => React.Node`      |    N/A    |     Component that will be rendered by the `routes` prop.     |    N/A    |             N/A            |
-|    `linkContainerColor`   |            `string`           |    N/A    |                  Color of the `LinkContainer`                 | `#123456` |    `linkContainer.color`   |
-|  `linkContainerMaxWidth`  |            `number`           |    `px`   |    Maximum width the `LinkContainer` will cover the screen    |   `300`   |  `linkContainer.maxWidth`  |
-|   `linkContainerPadding`  |            `number`           |    `px`   |   External padding around the outside of the `LinkContainer`  |    `10`   |   `linkContainer.padding`  |
-|    `linkContainerSpeed`   |            `number`           | `seconds` | Speed (in seconds) that the `LinkContainer` slides in and out |   `0.5`   |    `linkContainer.speed`   |
-| `linkContainerTransition` | [`Transition`](#custom-types) |    N/A    |            Transition type for the `LinkContainer`            |   `ease`  | `linkContainer.transition` |
-|    `linkContainerWidth`   |            `number`           |    `%`    | Width that the `LinkContainer` will take, up to it's maxWidth |    `75`   |    `linkContainer.width`   |
+|            Name           |              Type             |   Units   |                                         Description                                         |  Default  |    [`theme`](#theme) key    |
+| :-----------------------: | :---------------------------: | :-------: | :-----------------------------------------------------------------------------------------: | :-------: | :-------------------------: |
+|       `allowToggle`       |           `boolean`           |    N/A    | Determines when to pass the open/close toggle method to the children of the `LinkContainer` |   `true`  | `linkContainer.allowToggle` |
+|      `LinkComponent`      |       `() => React.Node`      |    N/A    |                    Component that will be rendered by the `routes` prop.                    |    N/A    |             N/A             |
+|    `linkContainerColor`   |            `string`           |    N/A    |                                 Color of the `LinkContainer`                                | `#123456` |    `linkContainer.color`    |
+|  `linkContainerMaxWidth`  |            `number`           |    `px`   |                   Maximum width the `LinkContainer` will cover the screen                   |   `300`   |   `linkContainer.maxWidth`  |
+|   `linkContainerPadding`  |            `number`           |    `px`   |                  External padding around the outside of the `LinkContainer`                 |    `10`   |   `linkContainer.padding`   |
+|    `linkContainerSpeed`   |            `number`           | `seconds` |                Speed (in seconds) that the `LinkContainer` slides in and out                |   `0.5`   |    `linkContainer.speed`    |
+| `linkContainerTransition` | [`Transition`](#custom-types) |    N/A    |                           Transition type for the `LinkContainer`                           |   `ease`  |  `linkContainer.transition` |
+|    `linkContainerWidth`   |            `number`           |    `%`    |                Width that the `LinkContainer` will take, up to it's maxWidth                |    `75`   |    `linkContainer.width`    |
 
 ### TopBar
 
@@ -137,6 +145,7 @@ type Theme = {
     color: string,
     maxWidth: number,
     padding: number,
+    allowToggle: boolean,
     speed: number,
     transition: string,
     width: number,
@@ -178,6 +187,7 @@ const theme = {
     color: '#123456',
     maxWidth: 300,
     padding: 0,
+    allowToggle: true,
     speed: 0.5,
     transition: 'ease',
     width: 75,
