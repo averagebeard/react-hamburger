@@ -10,7 +10,11 @@ npm install react-hamburger --save
 yarn add react-hamburger
 ```
 
+* * *
+
 ## Usage
+
+### `{ ReactHamburger }`
 
 ```javascript
 // ES6 syntax
@@ -27,20 +31,33 @@ After importing the component, simply render in the typical React manner.
 const HamburgerMenu = () => {
   return (
     <ReactHamburger />
-  )
-}
+  );
+};
 
 // class-based component
 class HamburgerMenu extends React.Component {
   render() {
     return (
       <ReactHamburger />
-    )
+    );
   }
 }
 ```
 
-To finish the setup pass a `routes` array and a `LinkComponent`. Make sure that the `routes` array has the same keys has [`Route`](#custom-types).
+To finish the setup pass a `routes` array and a `LinkComponent`.
+
+### `{ topBarHeight }`
+
+```javascript
+// ES6 syntax
+import { topBarHeight } from 'react-hamburger';
+
+// ES5 syntax
+const { topBarHeight } = require('react-hamburger');
+```
+`react-hamburger` gives access to the default theme's `topBarHeight`. This property allows for styling modifications to be made based on the height. If you pass your own height to `ReactHamburger` either through the theme or prop you will still be able to access `topBarHeight` but it won't be of much value anymore.
+
+* * *
 
 ## Props
 
@@ -102,6 +119,8 @@ The component that holds the links (or whatever content the developer wants) tha
 | `topBarGutter` |   `number`   |  `px` |              Space between the contents of the `HamburgerIcon` and the edge of the screen             |    `0`    |    `topBar.gutter`    |
 |  `TopContent`  | `React.Node` |  N/A  |                          Any content to render alongside the `HamburgerIcon`                          |   `null`  |          N/A          |
 
+* * *
+
 ## Types
 
 In some instances, the prop type and the `Theme` type are different. Refer to the above tables and `Theme` type listed below to ensure you are passing the correct prop-type.
@@ -149,6 +168,8 @@ type Theme = {
 ```javascript
 type Transition = 'ease' | 'linear' | 'ease-in' | 'ease-out' | 'ease-in-out';
 ```
+
+* * *
 
 ## Theme
 
