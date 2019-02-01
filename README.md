@@ -1,5 +1,7 @@
 # React-Hamburger
 
+A simple hamburger menu for React that is fully customizable.
+
 ## Installation
 
 ```bash
@@ -8,7 +10,11 @@ npm install react-hamburger --save
 yarn add react-hamburger
 ```
 
+* * *
+
 ## Usage
+
+### `{ ReactHamburger }`
 
 ```javascript
 // ES6 syntax
@@ -25,31 +31,45 @@ After importing the component, simply render in the typical React manner.
 const HamburgerMenu = () => {
   return (
     <ReactHamburger />
-  )
-}
+  );
+};
 
 // class-based component
 class HamburgerMenu extends React.Component {
   render() {
     return (
       <ReactHamburger />
-    )
+    );
   }
 }
 ```
 
-To finish the setup pass a `routes` array and a `LinkComponent`. Make sure that the `routes` array has the same keys has [`Route`](#custom-types).
+### `{ topBarHeight }`
+
+```javascript
+// ES6 syntax
+import { topBarHeight } from 'react-hamburger';
+
+// ES5 syntax
+const { topBarHeight } = require('react-hamburger');
+```
+
+`react-hamburger` gives access to the default theme's `topBarHeight`. This property allows for styling modifications to be made based on the height. If you pass your own height to `ReactHamburger` either through the theme or prop you will still be able to access `topBarHeight` but it won't be of much value anymore.
+
+* * *
 
 ## Props
 
 Props can either be directly passed through the `ReactHamburger` component or, where it exists, through the corresponding `theme` key.
 
+There are no required props to be passed in. To add content to the sliding sidebar, pass a component to the `LinkContainerContent` prop.
+
 ### General
 
-|   Name   |            Type            | Units |                                                                      Description                                                                     |     Default     | `theme` key |
-| :------: | :------------------------: | :---: | :--------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------: | :---------: |
-|  `theme` |  [`Theme`](#custom-types)  |  N/A  | `theme` object that can be passed to `react-hamburger` rather than passing individual props. The object and the keys can be seen in **Custom Types** | [Theme](#theme) |     N/A     |
-| `routes` | [`Route[]`](#custom-types) |  N/A  |                                Array of [`Route`](#custom-types) objects that will be rendered in the `LinkContainer`                                |       N/A       |     N/A     |
+|           Name           |           Type           | Units |                                                                      Description                                                                     |     Default     | `theme` key |
+| :----------------------: | :----------------------: | :---: | :--------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------: | :---------: |
+|          `theme`         | [`Theme`](#custom-types) |  N/A  | `theme` object that can be passed to `react-hamburger` rather than passing individual props. The object and the keys can be seen in **Custom Types** | [Theme](#theme) |     N/A     |
+| `LinkContainerComponent` |    `() => React.Node`    |  N/A  |                                              React component that will render inside the `LinkContainer`                                             |      `null`     |     N/A     |
 
 ### HamburgerIcon
 
@@ -57,7 +77,7 @@ The icon that the user clicks to show or hide the `LinkContainer`.
 
 |        Name       |    Type   | Units |                                       Description                                      |  Default  |  [`theme`](#theme) key |
 | :---------------: | :-------: | :---: | :------------------------------------------------------------------------------------: | :-------: | :--------------------: |
-|     `barColor`    |  `string` |  N/A  |                            Color of the `HamburgerIcon` bars                           | `#FFFFFF` |      `bars.color`      |
+|     `barColor`    |  `string` |  N/A  |                            Color of the `HamburgerIcon` bars                           | `#FF9900` |      `bars.color`      |
 |     `barCount`    |  `number` |  N/A  |                          Number of bars in the `HamburgerIcon`                         |    `3`    |           N/A          |
 |    `barHeight`    |  `number` |  `px` |                      Height of the individual `HamburgerIcon` bars                     |    `5`    |      `bars.height`     |
 |    `barRadius`    |  `number` |  `px` |                          Curvature of the `HamburgerIcon` bars                         |    `5`    |      `bars.radius`     |
@@ -65,7 +85,7 @@ The icon that the user clicks to show or hide the `LinkContainer`.
 |  `hamburgerWidth` |  `number` |  `px` |                              Width of the `HamburgerIcon`                              |    `40`   | `hamburger.dimensions` |
 |      `inline`     | `boolean` |  N/A  | Whether the `HamburgerIcon` and any `TopContent` should take up space on the main page |  `false`  |   `hamburger.inline`   |
 |      `locked`     | `boolean` |  N/A  |        Whether to lock the `HamburgerIcon` and `TopBar` to the top of the screen       |  `false`  |     `topBar.locked`    |
-|      `slide`      | `boolean` |  N/A  |          Whather the `HamburgerIcon` should slide out with the `LinkContainer`         |  `false`  |    `hamburger.slide`   |
+|      `slide`      | `boolean` |  N/A  |          Whether the `HamburgerIcon` should slide out with the `LinkContainer`         |  `false`  |    `hamburger.slide`   |
 |      `right`      | `boolean` |  N/A  |          Whether the `HamburgerIcon` should be on the right side of the screen         |  `false`  |  `hamburger.location`  |
 
 ### LinkContainer
@@ -92,14 +112,13 @@ The component that holds the links (or whatever content the developer wants) tha
 | `topBarGutter` |   `number`   |  `px` |              Space between the contents of the `HamburgerIcon` and the edge of the screen             |    `0`    |    `topBar.gutter`    |
 |  `TopContent`  | `React.Node` |  N/A  |                          Any content to render alongside the `HamburgerIcon`                          |   `null`  |          N/A          |
 
-### Custom Types
+* * *
 
-```javascript
-type Route = {
-  path: string,
-  title: string,
-};
-```
+## Types
+
+In some instances, the prop type and the `Theme` type are different. Refer to the above tables and `Theme` type listed below to ensure you are passing the correct prop-type.
+
+### Custom Types
 
 ```javascript
 type Theme = {
@@ -108,7 +127,7 @@ type Theme = {
     height: number,
     radius: number,
   },
-  menu: {
+  hamburger: {
     dimensions: number,
     inline: boolean,
     location: string,
@@ -136,6 +155,8 @@ type Theme = {
 type Transition = 'ease' | 'linear' | 'ease-in' | 'ease-out' | 'ease-in-out';
 ```
 
+* * *
+
 ## Theme
 
 The theme object and its default values is listed below (can also be seen in the props tables). If you don't pass a prop to the component or overwrite the key in the `theme` the default will be used.
@@ -143,7 +164,7 @@ The theme object and its default values is listed below (can also be seen in the
 ```javascript
 const theme = {
   bars: {
-    color: '#FFFFFF',
+    color: '#FF9900',
     height: 5,
     radius: 5,
   },

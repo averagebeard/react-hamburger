@@ -1,5 +1,6 @@
 // @flow
 
+import * as deepmerge from 'deepmerge';
 import * as React from 'react';
 import { ThemeProvider } from 'styled-components';
 
@@ -12,11 +13,9 @@ import {
   TopContentContainer,
 } from './components';
 
-import { renderLinks } from './renderLinks';
 import { theme as defaultTheme } from './theme';
 
 import type {
-  Route,
   Theme,
   Transition,
 } from './types';
@@ -29,7 +28,7 @@ type Props = {
   hamburgerHeight: number,
   hamburgerWidth: number,
   inline: boolean,
-  LinkComponent: () => React.Node,
+  LinkContainerContent?: () => React.Node,
   linkContainerColor: string,
   linkContainerMaxWidth: number,
   linkContainerPadding: number,
@@ -38,7 +37,6 @@ type Props = {
   linkContainerWidth: number,
   locked: boolean,
   right: boolean,
-  routes: Route[],
   showTopBar: boolean,
   slide: boolean,
   theme?: Theme,
@@ -53,18 +51,29 @@ type State = {
 };
 
 /*
-* TODO(Averagebeard): Need to handle click outside.
+* TODO(erikryanmoore): Need to handle click outside.
 */
 
 export class ReactHamburger extends React.Component<Props, State> {
   static defaultProps = {
     barCount: 3,
+    LinkContainerContent: null,
     theme: defaultTheme,
     TopContent: null,
   }
 
-  state = {
-    open: false,
+
+  constructor(props: Props) {
+    super(props);
+
+    // const hamburgerTheme = deepmerge.all([defaultTheme, theme]);
+
+    const { theme } = this.props;
+    this.hamburgerTheme = deepmerge.all([defaultTheme, theme]);
+
+    this.state = {
+      open: false,
+    };
   }
 
   toggleLinkContainer = (value: boolean) => this.setState({ open: value });
@@ -73,6 +82,8 @@ export class ReactHamburger extends React.Component<Props, State> {
     const { open } = this.state;
     return (open ? this.toggleLinkContainer(false) : this.toggleLinkContainer(true));
   }
+
+  hamburgerTheme: ?Theme
 
   renderBars = () => {
     const {
@@ -98,7 +109,7 @@ export class ReactHamburger extends React.Component<Props, State> {
       hamburgerHeight,
       hamburgerWidth,
       inline,
-      LinkComponent,
+      LinkContainerContent,
       linkContainerColor,
       linkContainerMaxWidth,
       linkContainerPadding,
@@ -107,7 +118,6 @@ export class ReactHamburger extends React.Component<Props, State> {
       linkContainerWidth,
       locked,
       right,
-      routes,
       showTopBar,
       slide,
       theme,
@@ -118,12 +128,12 @@ export class ReactHamburger extends React.Component<Props, State> {
     } = this.props;
     const { open } = this.state;
 
-    const Top = showTopBar
+    const Top = showTopBar || (theme !== undefined ? theme.topBar.display : null)
       ? TopBar
       : TopContainer;
 
     return (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={this.hamburgerTheme}>
         <>
           <Top
             color={topBarColor}
@@ -163,11 +173,7 @@ export class ReactHamburger extends React.Component<Props, State> {
             transition={linkContainerTransition}
             width={linkContainerWidth}
           >
-            {renderLinks(
-              routes,
-              LinkComponent,
-              this.hamburgerToggle,
-            )}
+            {LinkContainerContent}
           </LinkContainer>
         </>
       </ThemeProvider>
