@@ -1,8 +1,8 @@
 {
   "name": "react-hamburger",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "main": "lib/index.js",
-  "repository": "git@github.com:averagebeard/react-hamburger.git",
+  "repository": "git@github.com:erikryanmoore/react-hamburger.git",
   "author": "Erik Moore <erikmoore02@gmail.com>",
   "license": "MIT",
   "files": [
@@ -30,8 +30,8 @@
     "@babel/register": "^7.0.0",
     "@babel/runtime": "^7.3.1",
     "babel-eslint": "^10.0.1",
-    "babel-loader": "^8.0.5",
     "babel-plugin-styled-components": "^1.10.0",
+    "deepmerge": "^3.1.0",
     "eslint": "^5.12.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-flowtype": "^3.2.1",

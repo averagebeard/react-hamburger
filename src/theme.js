@@ -1,8 +1,10 @@
 // @flow
 
+export const topBarHeight = 60;
+
 export const theme = {
   bars: {
-    color: '#FFFFFF',
+    color: '#FF9900',
     height: 5,
     radius: 5,
   },
@@ -23,7 +25,7 @@ export const theme = {
   topBar: {
     color: '#111111',
     display: false,
-    height: 60,
+    height: topBarHeight,
     gutter: 10,
     locked: false,
   },

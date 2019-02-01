@@ -9,7 +9,7 @@ import {
 } from './styles';
 
 /*
-* TODO(averagebeard):
+* TODO(erikryanmoore):
 * Add ability to slide hamburger down from top.
 */
 
@@ -100,7 +100,6 @@ export const TopBar = styled.div`
 `;
 
 export const TopContainer = styled.div`
-  height: 100%;
   ${topBarPositioning}
 `;
 
