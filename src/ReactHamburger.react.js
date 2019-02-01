@@ -1,5 +1,6 @@
 // @flow
 
+import * as deepmerge from 'deepmerge';
 import * as React from 'react';
 import { ThemeProvider } from 'styled-components';
 
@@ -53,7 +54,7 @@ type State = {
 };
 
 /*
-* TODO(Averagebeard): Need to handle click outside.
+* TODO(erikryanmoore): Need to handle click outside.
 */
 
 export class ReactHamburger extends React.Component<Props, State> {
@@ -122,8 +123,10 @@ export class ReactHamburger extends React.Component<Props, State> {
       ? TopBar
       : TopContainer;
 
+    const hamburgerTheme = deepmerge.all([defaultTheme, theme]);
+
     return (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={hamburgerTheme}>
         <>
           <Top
             color={topBarColor}
