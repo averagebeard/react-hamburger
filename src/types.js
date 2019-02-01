@@ -1,17 +1,12 @@
 // @flow
 
-export type Route = {
-  path: string,
-  title: string,
-};
-
 export type Theme = {
   bars: {
     color: string,
     height: number,
     radius: number,
   },
-  menu: {
+  hamburger: {
     dimensions: number,
     inline: boolean,
     location: string,

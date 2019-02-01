@@ -44,8 +44,6 @@ class HamburgerMenu extends React.Component {
 }
 ```
 
-To finish the setup pass a `routes` array and a `LinkComponent`.
-
 ### `{ topBarHeight }`
 
 ```javascript
@@ -55,6 +53,7 @@ import { topBarHeight } from 'react-hamburger';
 // ES5 syntax
 const { topBarHeight } = require('react-hamburger');
 ```
+
 `react-hamburger` gives access to the default theme's `topBarHeight`. This property allows for styling modifications to be made based on the height. If you pass your own height to `ReactHamburger` either through the theme or prop you will still be able to access `topBarHeight` but it won't be of much value anymore.
 
 * * *
@@ -63,20 +62,14 @@ const { topBarHeight } = require('react-hamburger');
 
 Props can either be directly passed through the `ReactHamburger` component or, where it exists, through the corresponding `theme` key.
 
-The `routes` prop listed below is the only prop that is required. If you receive an error, check that you've passed and array to `ReactHamburger`.
-
-```javascript
-<ReactHamburger routes={[]} />
-```
-
-If you include an empty arrow as shown above it will allow the component to run while you figure out your `routes` array and your styling.
+There are no required props to be passed in. To add content to the sliding sidebar, pass a component to the `LinkContainerContent` prop.
 
 ### General
 
-|   Name   |            Type            | Units |                                                                      Description                                                                     |     Default     | `theme` key |
-| :------: | :------------------------: | :---: | :--------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------: | :---------: |
-|  `theme` |  [`Theme`](#custom-types)  |  N/A  | `theme` object that can be passed to `react-hamburger` rather than passing individual props. The object and the keys can be seen in **Custom Types** | [Theme](#theme) |     N/A     |
-| `routes` | [`Route[]`](#custom-types) |  N/A  |                                Array of [`Route`](#custom-types) objects that will be rendered in the `LinkContainer`                                |       N/A       |     N/A     |
+|           Name           |           Type           | Units |                                                                      Description                                                                     |     Default     | `theme` key |
+| :----------------------: | :----------------------: | :---: | :--------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------: | :---------: |
+|          `theme`         | [`Theme`](#custom-types) |  N/A  | `theme` object that can be passed to `react-hamburger` rather than passing individual props. The object and the keys can be seen in **Custom Types** | [Theme](#theme) |     N/A     |
+| `LinkContainerComponent` |    `() => React.Node`    |  N/A  |                                              React component that will render inside the `LinkContainer`                                             |      `null`     |     N/A     |
 
 ### HamburgerIcon
 
@@ -128,20 +121,13 @@ In some instances, the prop type and the `Theme` type are different. Refer to th
 ### Custom Types
 
 ```javascript
-type Route = {
-  path: string,
-  title: string,
-};
-```
-
-```javascript
 type Theme = {
   bars: {
     color: string,
     height: number,
     radius: number,
   },
-  menu: {
+  hamburger: {
     dimensions: number,
     inline: boolean,
     location: string,
