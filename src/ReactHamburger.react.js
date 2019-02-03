@@ -59,6 +59,10 @@ export class ReactHamburger extends React.Component<Props, State> {
     TopContent: null,
   }
 
+  state = {
+    open: false,
+  }
+
   constructor() {
     super();
 
