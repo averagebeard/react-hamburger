@@ -5,13 +5,13 @@ import * as React from 'react';
 import { ThemeProvider } from 'styled-components';
 
 import {
-  Bar,
   HamburgerIcon,
   LinkContainer,
   TopBar,
   TopContainer,
   TopContentContainer,
 } from './components';
+import { Bars } from './components/Bars.react';
 
 import { theme as defaultTheme } from './theme';
 
@@ -21,6 +21,7 @@ import type {
 } from './types';
 
 type Props = {
+  allowAutoClose?: boolean,
   barColor: string,
   barCount?: number,
   barHeight: number,
@@ -36,7 +37,6 @@ type Props = {
   linkContainerTransition: Transition,
   linkContainerWidth: number,
   locked: boolean,
-  allowToggle?: boolean,
   right: boolean,
   showTopBar: boolean,
   slide: boolean,
@@ -51,42 +51,55 @@ type State = {
   open: boolean,
 };
 
-/*
-* TODO(erikryanmoore): Need to handle click outside.
-*/
-
 export class ReactHamburger extends React.Component<Props, State> {
   static defaultProps = {
+    allowAutoClose: true,
     barCount: 3,
-    allowToggle: true,
     theme: defaultTheme,
     TopContent: null,
   }
 
+  constructor() {
+    super();
 
-  constructor(props: Props) {
-    super(props);
+    this.node = React.createRef();
+  }
 
-    // const hamburgerTheme = deepmerge.all([defaultTheme, theme]);
+  componentDidMount() {
+    const { allowAutoClose } = this.props;
+    return allowAutoClose
+      ? document.addEventListener('mousedown', this.handleClick, false)
+      : null;
+  }
 
-    const { theme } = this.props;
-    this.hamburgerTheme = deepmerge.all([defaultTheme, theme]);
-
-    this.state = {
-      open: false,
-    };
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClick, false);
   }
 
   toggleLinkContainer = (value: boolean) => this.setState({ open: value });
+
+  // TODO(erikryanmoore): Need to improve the UX of this.
+  handleClickOutside = () => this.toggleLinkContainer(false);
+
+  // TODO(erikryanmoore): Add flowtype for event.
+  handleClick = (e: any) => {
+    if (this.node.current === e.target) {
+      return;
+    }
+    this.handleClickOutside();
+  }
 
   hamburgerToggle = () => {
     const { open } = this.state;
     return (open ? this.toggleLinkContainer(false) : this.toggleLinkContainer(true));
   }
 
+  // TODO(erikryanmoore): Add flowtype for node.
+  node: any
+
   hamburgerTheme: ?Theme
 
-  renderBars = () => {
+  render() {
     const {
       barColor,
       barCount,
@@ -94,18 +107,6 @@ export class ReactHamburger extends React.Component<Props, State> {
       barRadius,
     } = this.props;
 
-    const barArray = Array.from(Array(barCount), (x, i) => i + 1);
-    return barArray.map<{}>(b => (
-      <Bar
-        color={barColor}
-        height={barHeight}
-        radius={barRadius}
-        key={b}
-      />
-    ));
-  }
-
-  render() {
     const {
       children,
       hamburgerHeight,
@@ -118,7 +119,6 @@ export class ReactHamburger extends React.Component<Props, State> {
       linkContainerTransition,
       linkContainerWidth,
       locked,
-      allowToggle,
       right,
       showTopBar,
       slide,
@@ -135,31 +135,19 @@ export class ReactHamburger extends React.Component<Props, State> {
       ? TopBar
       : TopContainer;
 
-
-    const allowToggleExists = (theme !== undefined ? theme.linkContainer.allowToggle : null);
-    const childrenWithProps = React.Children.map(children, child => (
-      React.cloneElement(
-        child,
-        {
-          onClick: allowToggle || allowToggleExists
-            ? this.hamburgerToggle
-            : null,
-        },
-      )
-    ));
-
     const hamburgerTheme = deepmerge.all([defaultTheme, theme]);
 
     return (
       <ThemeProvider theme={hamburgerTheme}>
         <>
           <Top
+            ref={this.node}
             color={topBarColor}
             height={topBarHeight}
             gutter={topBarGutter}
             inline={inline}
-            right={right}
             locked={locked}
+            right={right}
           >
             <HamburgerIcon
               height={hamburgerHeight}
@@ -172,7 +160,12 @@ export class ReactHamburger extends React.Component<Props, State> {
               maxWidth={linkContainerMaxWidth}
               width={hamburgerWidth}
             >
-              {this.renderBars()}
+              <Bars
+                barColor={barColor}
+                barCount={barCount}
+                barHeight={barHeight}
+                barRadius={barRadius}
+              />
             </HamburgerIcon>
             <TopContentContainer>
               {TopContent}
@@ -191,7 +184,7 @@ export class ReactHamburger extends React.Component<Props, State> {
             transition={linkContainerTransition}
             width={linkContainerWidth}
           >
-            {childrenWithProps}
+            {children}
           </LinkContainer>
         </>
       </ThemeProvider>
