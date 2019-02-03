@@ -16,7 +16,6 @@ export type Theme = {
     color: string,
     maxWidth: number,
     padding: number,
-    allowToggle: boolean,
     speed: number,
     transition: string,
     width: number,
