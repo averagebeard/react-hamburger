@@ -18,7 +18,6 @@ export const theme = {
     color: '#123456',
     maxWidth: 300,
     padding: 0,
-    allowToggle: true,
     speed: 0.5,
     transition: 'ease',
     width: 75,
