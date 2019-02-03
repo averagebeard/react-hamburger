@@ -1,5 +1,8 @@
 # React-Hamburger
 
+[![CircleCI](https://circleci.com/gh/erikryanmoore/react-hamburger/tree/master.svg?style=svg)](https://circleci.com/gh/erikryanmoore/react-hamburger/tree/master)
+[![Stable Release](https://img.shields.io/npm/v/react-hamburger.svg?style=flat-square)](https://www.npmjs.com/package/react-hamburger)
+
 A simple and fully customizable hamburger menu for React.
 
 ## Installation
