@@ -1,7 +1,7 @@
 {
   "name": "react-hamburger",
   "description": "A simple and fully customizable hamburger menu for React.",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "main": "lib/index.js",
   "repository": "git@github.com:erikryanmoore/react-hamburger.git",
   "author": "Erik Moore <erikmoore02@gmail.com>",
