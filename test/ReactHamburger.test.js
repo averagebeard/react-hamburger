@@ -40,12 +40,6 @@ describe('<ReactHamburger />', () => {
         expected: openState,
       },
       {
-        description: 'handleClickOutside should setState to closed',
-        instance: 'handleClickOutside',
-        expected: closedState,
-        state: openState,
-      },
-      {
         description: 'toggleLinkContainer should setState to open if closed',
         instance: 'toggleLinkContainer',
         instanceValues: true,

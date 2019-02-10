@@ -19,6 +19,7 @@ export type Theme = {
     allowToggle: boolean,
     speed: number,
     transition: string,
+    vertical: boolean,
     width: number,
   },
   topBar: {

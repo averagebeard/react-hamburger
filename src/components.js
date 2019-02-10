@@ -3,15 +3,11 @@
 import styled from 'styled-components';
 
 import {
-  createSlideTransition,
+  horizontalSlideTransition,
   linkContainerSpacing,
   topBarPositioning,
+  verticalSlideTransition,
 } from './styles';
-
-/*
-* TODO(erikryanmoore):
-* Add ability to slide hamburger down from top.
-*/
 
 export const Bar = styled.div`
   width: 100%;
@@ -50,8 +46,8 @@ export const HamburgerIcon = styled.div`
     // eslint-disable-next-line no-nested-ternary
     slide || hamburger.slide
       ? (right
-        ? createSlideTransition(-maxWidth || -linkContainer.maxWidth, 0, 'px')
-        : createSlideTransition(0, maxWidth || linkContainer.maxWidth, 'px')
+        ? horizontalSlideTransition(-maxWidth || -linkContainer.maxWidth, 0, 'px')
+        : horizontalSlideTransition(0, maxWidth || linkContainer.maxWidth, 'px')
       )
       : undefined
   )}
@@ -62,8 +58,18 @@ export const LinkContainer = styled.div`
   z-index: 98;
   ${({
     color,
-    maxWidth,
     padding,
+    theme: { linkContainer },
+  }) => `
+    background: ${color || linkContainer.color};
+    padding: ${padding || linkContainer.padding}px;
+  `};
+  ${linkContainerSpacing};
+`;
+
+export const LinkContainerHorizontal = styled(LinkContainer)`
+  ${({
+    maxWidth,
     right,
     theme: {
       linkContainer,
@@ -71,15 +77,17 @@ export const LinkContainer = styled.div`
     },
     width,
   }) => `
-    background: ${color || linkContainer.color};
     height: 100vh;
     max-width: ${maxWidth || linkContainer.maxWidth}px;
-    padding: ${padding || linkContainer.padding}px;
     right: ${right || (hamburger.location === 'right') ? `${-linkContainer.maxWidth}px` : ''};
     width: ${width || linkContainer.width}%;
   `};
-  ${linkContainerSpacing};
-  ${createSlideTransition(-100, 0, '%')}
+  ${horizontalSlideTransition(-100, 0, '%')}
+`;
+
+export const LinkContainerVertical = styled(LinkContainer)`
+  width: 100%;
+  ${verticalSlideTransition(-100, 0, '%')};
 `;
 
 export const TopBar = styled.div`
