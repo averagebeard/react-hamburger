@@ -108,6 +108,7 @@ The component that holds the links (or whatever content the developer wants) tha
 |    `linkContainerSpeed`   |            `number`           | `seconds` | Speed (in seconds) that the `LinkContainer` slides in and out |   `0.5`   |    `linkContainer.speed`   |
 | `linkContainerTransition` | [`Transition`](#custom-types) |    N/A    |            Transition type for the `LinkContainer`            |   `ease`  | `linkContainer.transition` |
 |    `linkContainerWidth`   |            `number`           |    `%`    | Width that the `LinkContainer` will take, up to it's maxWidth |    `75`   |    `linkContainer.width`   |
+|      `verticalSlide`      |           `boolean`           |    N/A    |          Whether the slider should slide from the top         |  `false`  |  `linkContainer.vertical`  |
 
 ### TopBar
 
@@ -146,6 +147,7 @@ type Theme = {
     padding: number,
     speed: number,
     transition: string,
+    vertical: boolean,
     width: number,
   },
   topBar: {
@@ -187,6 +189,7 @@ const theme = {
     padding: 0,
     speed: 0.5,
     transition: 'ease',
+    vertical: false,,
     width: 75,
   },
   topBar: {

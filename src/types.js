@@ -18,6 +18,7 @@ export type Theme = {
     padding: number,
     speed: number,
     transition: string,
+    vertical: boolean,
     width: number,
   },
   topBar: {

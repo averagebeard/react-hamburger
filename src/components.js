@@ -58,16 +58,18 @@ export const LinkContainer = styled.div`
   z-index: 98;
   ${({
     color,
+    padding,
     theme: { linkContainer },
   }) => `
     background: ${color || linkContainer.color};
+    padding: ${padding || linkContainer.padding}px;
   `};
+  ${linkContainerSpacing};
 `;
 
 export const LinkContainerHorizontal = styled(LinkContainer)`
   ${({
     maxWidth,
-    padding,
     right,
     theme: {
       linkContainer,
@@ -77,27 +79,14 @@ export const LinkContainerHorizontal = styled(LinkContainer)`
   }) => `
     height: 100vh;
     max-width: ${maxWidth || linkContainer.maxWidth}px;
-    padding: ${padding || linkContainer.padding}px;
     right: ${right || (hamburger.location === 'right') ? `${-linkContainer.maxWidth}px` : ''};
     width: ${width || linkContainer.width}%;
   `};
-  ${linkContainerSpacing};
   ${horizontalSlideTransition(-100, 0, '%')}
 `;
 
 export const LinkContainerVertical = styled(LinkContainer)`
   width: 100%;
-  ${({
-    height,
-    padding,
-    theme: {
-      linkContainer,
-      hamburger: { dimensions },
-    },
-  }) => `
-    padding: ${padding || linkContainer.padding}px;
-    padding-top: ${height || dimensions}px;
-  `};
   ${verticalSlideTransition(-100, 0, '%')};
 `;
 

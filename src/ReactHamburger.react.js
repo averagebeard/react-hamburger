@@ -45,7 +45,7 @@ type Props = {
   topBarHeight: number,
   topBarGutter: number,
   TopContent?: React.Node,
-  vertical?: boolean,
+  verticalSlide?: boolean,
 };
 
 type State = {
@@ -57,7 +57,7 @@ export class ReactHamburger extends React.Component<Props, State> {
     barCount: 3,
     theme: defaultTheme,
     TopContent: null,
-    vertical: true,
+    verticalSlide: false,
   }
 
   state = {
@@ -101,50 +101,51 @@ export class ReactHamburger extends React.Component<Props, State> {
       topBarGutter,
       topBarHeight,
       TopContent,
-      vertical,
+      verticalSlide,
     } = this.props;
     const { open } = this.state;
 
-    const topBarExists = (theme !== undefined ? theme.topBar.display : null);
-    const Top = showTopBar || topBarExists
+    const hamburgerTheme = deepmerge.all([defaultTheme, theme]);
+
+    const Top = showTopBar || hamburgerTheme.topBar.display
       ? TopBar
       : TopContainer;
 
-    const hamburgerTheme = deepmerge.all([defaultTheme, theme]);
-
-    const linkContainer = vertical
-      ? (
-        <LinkContainerVertical
-          color={linkContainerColor}
-          hamburgerHeight={hamburgerHeight}
-          open={open}
-          padding={linkContainerPadding}
-          speed={linkContainerSpeed}
-          showTopBar={showTopBar}
-          topBarHeight={topBarHeight}
-          transition={linkContainerTransition}
-          width={linkContainerWidth}
-        >
-          {children}
-        </LinkContainerVertical>
-      )
-      : (
-        <LinkContainerHorizontal
-          color={linkContainerColor}
-          hamburgerHeight={hamburgerHeight}
-          maxWidth={linkContainerMaxWidth}
-          open={open}
-          padding={linkContainerPadding}
-          right={right}
-          speed={linkContainerSpeed}
-          showTopBar={showTopBar}
-          topBarHeight={topBarHeight}
-          transition={linkContainerTransition}
-          width={linkContainerWidth}
-        >
-          {children}
-        </LinkContainerHorizontal>
-      );
+    const linkContainer = (
+      verticalSlide || hamburgerTheme.linkContainer.vertical
+        ? (
+          <LinkContainerVertical
+            color={linkContainerColor}
+            hamburgerHeight={hamburgerHeight}
+            open={open}
+            padding={linkContainerPadding}
+            speed={linkContainerSpeed}
+            showTopBar={showTopBar}
+            topBarHeight={topBarHeight}
+            transition={linkContainerTransition}
+            width={linkContainerWidth}
+          >
+            {children}
+          </LinkContainerVertical>
+        )
+        : (
+          <LinkContainerHorizontal
+            color={linkContainerColor}
+            hamburgerHeight={hamburgerHeight}
+            maxWidth={linkContainerMaxWidth}
+            open={open}
+            padding={linkContainerPadding}
+            right={right}
+            speed={linkContainerSpeed}
+            showTopBar={showTopBar}
+            topBarHeight={topBarHeight}
+            transition={linkContainerTransition}
+            width={linkContainerWidth}
+          >
+            {children}
+          </LinkContainerHorizontal>
+        )
+    );
 
     return (
       <ThemeProvider theme={hamburgerTheme}>

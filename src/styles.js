@@ -10,10 +10,6 @@ const clearMixin = css`
   }
 `;
 
-/*
-* Known bug:
-* When using `showTopBar` and `inline` the UX isn't great.
-*/
 export const linkContainerSpacing = css`
   ${({
     showTopBar,

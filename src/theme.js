@@ -20,6 +20,7 @@ export const theme = {
     padding: 0,
     speed: 0.5,
     transition: 'ease',
+    vertical: false,
     width: 75,
   },
   topBar: {
