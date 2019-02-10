@@ -65,19 +65,13 @@ const { topBarHeight } = require('react-hamburger');
 
 Most props can either be directly passed through the `ReactHamburger` component or, where it exists, through the corresponding `theme` key.
 
-The `allowAutoClose`, `barCount`, and `TopContent` props cannot be passed through the theme object.
+The `barCount`, and `TopContent` props cannot be passed through the theme object.
 
 If you pass a prop and use the theme, the prop will take precedence.
 
 ### `children`
 
 Passing in `this.props.children` will render content in the `LinkContainer` (i.e. the slide-in-out sidebar).
-
-### General
-
-|       Name       |    Type   | Units |                                           Description                                           | Default | `theme` key |
-| :--------------: | :-------: | :---: | :---------------------------------------------------------------------------------------------: | :-----: | :---------: |
-| `allowAutoClose` | `boolean` |  N/A  | Causes the sidebar to automatically close when anywhere outside of `ReactHamburger` is clicked. |  `true` |     N/A     |
 
 ### Theme
 
