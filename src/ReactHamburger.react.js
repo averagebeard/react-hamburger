@@ -6,10 +6,11 @@ import { ThemeProvider } from 'styled-components';
 
 import {
   HamburgerIcon,
-  LinkContainer,
+  LinkContainerHorizontal,
   TopBar,
   TopContainer,
   TopContentContainer,
+  LinkContainerVertical,
 } from './components';
 import { Bars } from './components/Bars.react';
 
@@ -43,7 +44,8 @@ type Props = {
   topBarColor: string,
   topBarHeight: number,
   topBarGutter: number,
-  TopContent?: React.Node
+  TopContent?: React.Node,
+  verticalSlide?: boolean,
 };
 
 type State = {
@@ -55,6 +57,7 @@ export class ReactHamburger extends React.Component<Props, State> {
     barCount: 3,
     theme: defaultTheme,
     TopContent: null,
+    verticalSlide: false,
   }
 
   state = {
@@ -98,15 +101,51 @@ export class ReactHamburger extends React.Component<Props, State> {
       topBarGutter,
       topBarHeight,
       TopContent,
+      verticalSlide,
     } = this.props;
     const { open } = this.state;
 
-    const topBarExists = (theme !== undefined ? theme.topBar.display : null);
-    const Top = showTopBar || topBarExists
+    const hamburgerTheme = deepmerge.all([defaultTheme, theme]);
+
+    const Top = showTopBar || hamburgerTheme.topBar.display
       ? TopBar
       : TopContainer;
 
-    const hamburgerTheme = deepmerge.all([defaultTheme, theme]);
+    const linkContainer = (
+      verticalSlide || hamburgerTheme.linkContainer.vertical
+        ? (
+          <LinkContainerVertical
+            color={linkContainerColor}
+            hamburgerHeight={hamburgerHeight}
+            open={open}
+            padding={linkContainerPadding}
+            speed={linkContainerSpeed}
+            showTopBar={showTopBar}
+            topBarHeight={topBarHeight}
+            transition={linkContainerTransition}
+            width={linkContainerWidth}
+          >
+            {children}
+          </LinkContainerVertical>
+        )
+        : (
+          <LinkContainerHorizontal
+            color={linkContainerColor}
+            hamburgerHeight={hamburgerHeight}
+            maxWidth={linkContainerMaxWidth}
+            open={open}
+            padding={linkContainerPadding}
+            right={right}
+            speed={linkContainerSpeed}
+            showTopBar={showTopBar}
+            topBarHeight={topBarHeight}
+            transition={linkContainerTransition}
+            width={linkContainerWidth}
+          >
+            {children}
+          </LinkContainerHorizontal>
+        )
+    );
 
     return (
       <ThemeProvider theme={hamburgerTheme}>
@@ -141,22 +180,7 @@ export class ReactHamburger extends React.Component<Props, State> {
               {TopContent}
             </TopContentContainer>
           </Top>
-          <LinkContainer
-            color={linkContainerColor}
-            hamburgerHeight={hamburgerHeight}
-            maxWidth={linkContainerMaxWidth}
-            onClick={this.hamburgerToggle}
-            open={open}
-            padding={linkContainerPadding}
-            right={right}
-            speed={linkContainerSpeed}
-            showTopBar={showTopBar}
-            topBarHeight={topBarHeight}
-            transition={linkContainerTransition}
-            width={linkContainerWidth}
-          >
-            {children}
-          </LinkContainer>
+          {linkContainer}
         </>
       </ThemeProvider>
     );

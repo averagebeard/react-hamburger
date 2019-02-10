@@ -10,10 +10,6 @@ const clearMixin = css`
   }
 `;
 
-/*
-* Known bug:
-* When using `showTopBar` and `inline` the UX isn't great.
-*/
 export const linkContainerSpacing = css`
   ${({
     showTopBar,
@@ -25,7 +21,13 @@ export const linkContainerSpacing = css`
   )}
 `;
 
-export const createSlideTransition = (
+const linkContainerTransition = css`
+  ${({ speed, theme: { linkContainer }, transition }) => `
+    transition: transform ${speed || linkContainer.speed}s ${transition || linkContainer.transition};
+  `};
+`;
+
+export const horizontalSlideTransition = (
   leftPosition: number,
   rightPosition: number,
   units: string,
@@ -40,9 +42,7 @@ export const createSlideTransition = (
       ? (open ? leftPosition : rightPosition)
       : (open ? rightPosition : leftPosition)
   )}${units});
-  ${({ speed, theme: { linkContainer }, transition }) => `
-    transition: transform ${speed || linkContainer.speed}s ${transition || linkContainer.transition};
-  `};
+  ${linkContainerTransition};
 `;
 
 export const topBarPositioning = css`
@@ -83,4 +83,22 @@ export const topBarPositioning = css`
       clearMixin,
     };
   }};
+`;
+
+export const verticalSlideTransition = (
+  topPosition: number,
+  bottomPosition: number,
+  units: string,
+) => css`
+  transform: translateY(${({
+    top,
+    open,
+    theme: { hamburger: { location } },
+  }) => (
+    // eslint-disable-next-line no-nested-ternary
+    (top || location === 'top')
+      ? (open ? topPosition : bottomPosition)
+      : (open ? bottomPosition : topPosition)
+  )}${units});
+  ${linkContainerTransition};
 `;
