@@ -21,7 +21,6 @@ import type {
 } from './types';
 
 type Props = {
-  allowAutoClose?: boolean,
   barColor: string,
   barCount?: number,
   barHeight: number,
@@ -53,7 +52,6 @@ type State = {
 
 export class ReactHamburger extends React.Component<Props, State> {
   static defaultProps = {
-    allowAutoClose: true,
     barCount: 3,
     theme: defaultTheme,
     TopContent: null,
@@ -63,43 +61,12 @@ export class ReactHamburger extends React.Component<Props, State> {
     open: false,
   }
 
-  constructor() {
-    super();
-
-    this.node = React.createRef();
-  }
-
-  componentDidMount() {
-    const { allowAutoClose } = this.props;
-    return allowAutoClose
-      ? document.addEventListener('mousedown', this.handleClick, false)
-      : null;
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClick, false);
-  }
-
   toggleLinkContainer = (value: boolean) => this.setState({ open: value });
-
-  // TODO(erikryanmoore): Need to improve the UX of this.
-  handleClickOutside = () => this.toggleLinkContainer(false);
-
-  // TODO(erikryanmoore): Add flowtype for event.
-  handleClick = (e: any) => {
-    if (this.node.current === e.target) {
-      return;
-    }
-    this.handleClickOutside();
-  }
 
   hamburgerToggle = () => {
     const { open } = this.state;
     return (open ? this.toggleLinkContainer(false) : this.toggleLinkContainer(true));
   }
-
-  // TODO(erikryanmoore): Add flowtype for node.
-  node: any
 
   hamburgerTheme: ?Theme
 
@@ -145,7 +112,6 @@ export class ReactHamburger extends React.Component<Props, State> {
       <ThemeProvider theme={hamburgerTheme}>
         <>
           <Top
-            ref={this.node}
             color={topBarColor}
             height={topBarHeight}
             gutter={topBarGutter}
@@ -179,6 +145,7 @@ export class ReactHamburger extends React.Component<Props, State> {
             color={linkContainerColor}
             hamburgerHeight={hamburgerHeight}
             maxWidth={linkContainerMaxWidth}
+            onClick={this.hamburgerToggle}
             open={open}
             padding={linkContainerPadding}
             right={right}
