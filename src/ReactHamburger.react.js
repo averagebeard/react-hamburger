@@ -117,6 +117,7 @@ export class ReactHamburger extends React.Component<Props, State> {
           <LinkContainerVertical
             color={linkContainerColor}
             hamburgerHeight={hamburgerHeight}
+            onClick={this.hamburgerToggle}
             open={open}
             padding={linkContainerPadding}
             speed={linkContainerSpeed}
@@ -133,6 +134,7 @@ export class ReactHamburger extends React.Component<Props, State> {
             color={linkContainerColor}
             hamburgerHeight={hamburgerHeight}
             maxWidth={linkContainerMaxWidth}
+            onClick={this.hamburgerToggle}
             open={open}
             padding={linkContainerPadding}
             right={right}
