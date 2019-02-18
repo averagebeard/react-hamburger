@@ -54,7 +54,7 @@ export const HamburgerIcon = styled.div`
 `;
 
 export const LinkContainer = styled.div`
-  position: sticky;
+  position: fixed;
   z-index: 98;
   ${({
     color,
