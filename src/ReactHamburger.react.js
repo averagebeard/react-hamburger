@@ -64,14 +64,14 @@ export class ReactHamburger extends React.Component<Props, State> {
     open: false,
   }
 
-  toggleLinkContainer = (value: boolean) => this.setState({ open: value });
+  hamburgerTheme: ?Theme
 
   hamburgerToggle = () => {
     const { open } = this.state;
     return (open ? this.toggleLinkContainer(false) : this.toggleLinkContainer(true));
   }
 
-  hamburgerTheme: ?Theme
+  toggleLinkContainer = (value: boolean) => this.setState({ open: value });
 
   render() {
     const {
